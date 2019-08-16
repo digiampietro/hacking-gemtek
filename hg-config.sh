@@ -9,17 +9,25 @@ cd $MYDIR
 
 # first parameter must be the eeprom image and must be 128Mb (134217728 bytes)
 
-if [ ! -e $1 ]
+if [ ! -e "$1" ]
 then
     echo "Usage: ./hg-config eeprom.bin"
     exit 1
+else
+    echo "-----> Eprom file: $1"
 fi
-EPROMSIZE=`wc < $1`
-if [ ! $EPROMSIZE -eq 134217728 ]
+
+EPROMSIZE=`wc -c < $1`
+
+if [ ! "$EPROMSIZE" -eq "134217728" ]
 then
     echo "ERROR: $1 must be exaclty 128Mb (134,217,728 bytes)"
     exit 1
+else
+    echo "-----> Eprom file size: $EPROMSIZE"
 fi
+
+    
 
 # ---------------------------------------------------------------
 # create directories in parent directory
@@ -69,7 +77,7 @@ DOWNCKSUM[0]="fad589eeda5eeff837ec21624cb5faff87efb496"
 
 DOWNFILE[1]=`basename $1`
 DOWNURL[1]="file://$1"
-DOWNCKSUM[1]="ed6f25fca11cc3bf22b6ac36f7c17dc9e5db5c42"
+DOWNCKSUM[1]="10c85e10a895c48a0673185cbeff450de2ced3e1"
 
 for i in ${!DOWNFILE[*]}
 do
@@ -79,7 +87,7 @@ do
     if [ -e $F ]
     then
 	FCK=`sha1sum $F | awk '{print $1}'`
-	echo "-----> `basename $F` exits with checksum $FCK"
+	echo "-----> `basename $F` exist with checksum $FCK"
     fi
     if [ "$FCK" == "$URLCK" ]
     then
@@ -163,7 +171,6 @@ else
     dd if=$MIPSFIRM/06-kernel.bin bs=1  skip=`echo "88 + $IMG1LEN"|bc`  count=$IMG2LEN of=$MIPSFIRM/u04-sqfs.dat
 
     echo "-----> extracting the squashfs file system"
-    mkdir $MIPSFIRM/root
     fakeroot -s $MIPSFIRM/fakeroot.dat unsquashfs -d $MIPSFIRM/root $MIPSFIRM/u04-sqfs.dat
 fi
 
