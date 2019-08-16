@@ -1,0 +1,22 @@
+# This file list files or directories that have to removed from output/root
+# root file system before creating the squashfs image
+# by default nothing is removed.
+#
+# if a file or directory listed here is not found during the root file system image
+# building process an error is raised
+#
+# Format of this file is the following:
+#   '#' as first char in a line means comment and the line is ignored
+#   /path/name   indicate a file to be removed, the path is the full path name inside the squashfs image
+#   /path/name/  indicate a directory that will be removed
+# last line be terminated with an end of line character, otherwise will be ignored
+#
+# examples:
+#
+# the following line (without the '# ') will remove the entire directory
+# /etc/cm/conf/CH/
+#
+# the following line (without the '# ') will remove a single file or link
+# /etc/cm/conf/CH/factory_voip_v2.CH.xml
+#
+#/etc/init.d/S99gemtek.sh

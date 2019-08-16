@@ -1,0 +1,33 @@
+#!/bin/bash
+MYHOSTNAME=`hostname`
+#-----------------------------------------------------------------------
+# execute this script only on the docker host
+#-----------------------------------------------------------------------
+if [ "$MYHOSTNAME" != "BRHOST" ]
+then
+    echo "brmake and make must be executed on docker brhost"
+    exit
+fi
+#-----------------------------------------------------------------------
+export MIPS4KCDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $MIPS4KCDIR/set-env.sh
+echo "-----> change dir to $BRDIR"
+cd $BRDIR
+echo "-----> executing: make BR2_EXTERNAL=$BR2EXT $*"
+
+#-----------------------------------------------------------------------
+if [ "$*" == "savedefconfig" ]
+then
+    #-----------------------------------------------------------------------
+    # savedefconfig
+    #-----------------------------------------------------------------------
+    make BR2_EXTERNAL=$BR2EXT BR2_DEFCONFIG="$BR2EXT/configs/mips4kc-qemu_mipsel_malta_defconfig" $*
+elif [ "$*" == "uclibc-update-defconfig" ]
+then
+    #-----------------------------------------------------------------------
+    # uclibc-update-defconfig
+    #-----------------------------------------------------------------------    
+    cat $BRDIR/output/build/uclibc-0.9.33.2/.config | sed "s,$BRDIR,\$\(TOPDIR\),g" > $BR2EXT/configs/uClibc-0.9.33.config
+else
+    make BR2_EXTERNAL=$BR2EXT $*
+fi

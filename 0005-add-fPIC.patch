@@ -1,0 +1,27 @@
+diff -Naur a/package/ipsec-tools/ipsec-tools.mk b/package/ipsec-tools/ipsec-tools.mk
+--- a/package/ipsec-tools/ipsec-tools.mk	2019-08-14 00:33:12.853931654 +0200
++++ b/package/ipsec-tools/ipsec-tools.mk	2019-08-14 00:33:12.857931706 +0200
+@@ -1,3 +1,5 @@
++IPSEC_TOOLS_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS) -fPIC"
+ ################################################################################
+ #
+ # ipsec-tools
+diff -Naur a/package/iptables/iptables.mk b/package/iptables/iptables.mk
+--- a/package/iptables/iptables.mk	2019-08-14 00:33:12.845931548 +0200
++++ b/package/iptables/iptables.mk	2019-08-14 00:33:12.845931548 +0200
+@@ -1,3 +1,5 @@
++IPTABLES_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS) -fPIC"
+ ################################################################################
+ #
+ # iptables
+diff -Naur a/package/libnfnetlink/libnfnetlink.mk b/package/libnfnetlink/libnfnetlink.mk
+--- a/package/libnfnetlink/libnfnetlink.mk	2019-08-14 00:33:12.833931389 +0200
++++ b/package/libnfnetlink/libnfnetlink.mk	2019-08-14 00:33:12.833931389 +0200
+@@ -1,3 +1,5 @@
++LIBNFNETLINK_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS) -fPIC"
+ ################################################################################
+ #
+ # libnfnetlink

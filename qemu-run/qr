@@ -1,0 +1,17 @@
+#!/bin/bash
+MYDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $MYDIR/../set-env.sh > /dev/null
+cd $MYDIR
+export QEMU_AUDIO_DRV="none"
+echo "kernel: $BRIMAGES/vmlinux"
+echo "rootfs: $BRIMAGES/rootfs.ext2"
+
+qemu-system-mipsel -M          malta                                                 \
+		   -m          256                                                   \
+		   -kernel     $BRIMAGES/vmlinux                                     \
+		   -nographic                                                        \
+ 		   -hda        $BRIMAGES/rootfs.ext2                                 \
+                   -net        nic,model=e1000                                                   \
+                   -net        user,hostfwd=tcp::2222-:22,hostfwd=tcp::9000-:9000    \
+		   -append     "root=/dev/hda console=uart0"
+
