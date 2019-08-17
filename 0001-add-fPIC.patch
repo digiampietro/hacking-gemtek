@@ -1,9 +1,90 @@
+diff -Naur a/package/expat/expat.mk b/package/expat/expat.mk
+--- a/package/expat/expat.mk	2019-08-17 01:55:57.338031384 +0200
++++ b/package/expat/expat.mk	2019-08-17 01:55:57.342031506 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++EXPAT_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # expat
 diff -Naur a/package/file/file.mk b/package/file/file.mk
---- a/package/file/file.mk	2019-08-13 23:05:03.842360673 +0200
-+++ b/package/file/file.mk	2019-08-13 23:05:03.862364715 +0200
-@@ -1,3 +1,5 @@
+--- a/package/file/file.mk	2019-08-17 01:55:57.310030524 +0200
++++ b/package/file/file.mk	2019-08-17 01:55:57.314030646 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
 +FILE_CONF_ENV = \
-+        CFLAGS="$(TARGET_CFLAGS) -fPIC"
++        CFLAGS="$(TARGET_CFLAGS)"
  ################################################################################
  #
  # file
+diff -Naur a/package/gdb/gdb.mk b/package/gdb/gdb.mk
+--- a/package/gdb/gdb.mk	2019-08-17 01:55:57.366032244 +0200
++++ b/package/gdb/gdb.mk	2019-08-17 01:55:57.370032366 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++GDB_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # gdb
+diff -Naur a/package/gettext/gettext.mk b/package/gettext/gettext.mk
+--- a/package/gettext/gettext.mk	2019-08-17 01:55:57.390032980 +0200
++++ b/package/gettext/gettext.mk	2019-08-17 01:55:57.390032980 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++GETTEXT_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # gettext
+diff -Naur a/package/gmp/gmp.mk b/package/gmp/gmp.mk
+--- a/package/gmp/gmp.mk	2019-08-17 01:55:57.398033226 +0200
++++ b/package/gmp/gmp.mk	2019-08-17 01:55:57.398033226 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++GMP_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # gmp
+diff -Naur a/package/ipsec-tools/ipsec-tools.mk b/package/ipsec-tools/ipsec-tools.mk
+--- a/package/ipsec-tools/ipsec-tools.mk	2019-08-17 01:55:57.422033962 +0200
++++ b/package/ipsec-tools/ipsec-tools.mk	2019-08-17 01:55:57.422033962 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++IPSEC_TOOLS_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # ipsec-tools
+diff -Naur a/package/iptables/iptables.mk b/package/iptables/iptables.mk
+--- a/package/iptables/iptables.mk	2019-08-17 01:55:57.414033716 +0200
++++ b/package/iptables/iptables.mk	2019-08-17 01:55:57.414033716 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++IPTABLES_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # iptables
+diff -Naur a/package/libiconv/libiconv.mk b/package/libiconv/libiconv.mk
+--- a/package/libiconv/libiconv.mk	2019-08-17 01:55:57.382032734 +0200
++++ b/package/libiconv/libiconv.mk	2019-08-17 01:55:57.386032858 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++LIBICONV_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # libiconv
+diff -Naur a/package/libnfnetlink/libnfnetlink.mk b/package/libnfnetlink/libnfnetlink.mk
+--- a/package/libnfnetlink/libnfnetlink.mk	2019-08-17 01:55:57.406033472 +0200
++++ b/package/libnfnetlink/libnfnetlink.mk	2019-08-17 01:55:57.410033594 +0200
+@@ -1,3 +1,6 @@
++TARGET_CFLAGS += -fPIC
++LIBNFNETLINK_CONF_ENV = \
++        CFLAGS="$(TARGET_CFLAGS)"
+ ################################################################################
+ #
+ # libnfnetlink

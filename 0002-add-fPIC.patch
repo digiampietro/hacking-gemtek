@@ -1,9 +1,0 @@
-diff -Naur a/package/expat/expat.mk b/package/expat/expat.mk
---- a/package/expat/expat.mk	2019-08-14 00:13:28.675334207 +0200
-+++ b/package/expat/expat.mk	2019-08-14 00:13:28.675334207 +0200
-@@ -1,3 +1,5 @@
-+EXPAT_CONF_ENV = \
-+        CFLAGS="$(TARGET_CFLAGS) -fPIC"
- ################################################################################
- #
- # expat
