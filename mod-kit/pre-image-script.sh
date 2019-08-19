@@ -33,5 +33,8 @@ cd $MK_BASEDIR/output/root/bin
 rm -f login
 ln -s /bin/busybox login
 
+echo -n "hacking-gemtek modified boot image " > $MK_BASEDIR/output/root/etc/motd
+date >> $MK_BASEDIR/output/root/etc/motd
+
 
 
