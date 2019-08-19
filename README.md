@@ -10,7 +10,7 @@
 	- [Default password generator](#default-password-generator)
 	- [Password dictionary generator](#password-dictionary-generator)
 	- [Accessing a root shell](#accessing-a-root-shell)
-	- [Getting the EPROM image and the root file system](#getting-the-eprom-image-and-the-root-file-system)
+	- [Getting the EEPROM image and the root file system](#getting-the-eeprom-image-and-the-root-file-system)
 	- [Using the firmware modification Kit](#using-the-firmware-modification-kit)
 	- [The emulation Environment](#the-emulation-environment)
 - [The Reverse Engineering Process](#the-reverse-engineering-process)
@@ -30,14 +30,15 @@
 		- [The most interesting U-Boot variables](#the-most-interesting-u-boot-variables)
 		- [The most interesting U-Boot commands](#the-most-interesting-u-boot-commands)
 		- [U-Boot manually booting from the CLI](#u-boot-manually-booting-from-the-cli)
+	- [Getting the firmware file](#getting-the-firmware-file)
 		- [Splitting the EEPROM image partitions](#splitting-the-eeprom-image-partitions)
 		- [Analyzing and splitting the boot image partition](#analyzing-and-splitting-the-boot-image-partition)
 		- [Extracting the squashfs root file system](#extracting-the-squashfs-root-file-system)
-		- [Preliminary file system analysis](#preliminary-file-system-analysis)
-			- [Buildroot configuration in the root file system](#buildroot-configuration-in-the-root-file-system)
-			- [Login process](#login-process)
-			- [Startup scripts](#startup-scripts)
-			- [/etc/passwd and /etc/shadow files](#etcpasswd-and-etcshadow-files)
+- [How the device works: file system analysis](#how-the-device-works-file-system-analysis)
+	- [Buildroot configuration in the root file system](#buildroot-configuration-in-the-root-file-system)
+	- [Login process](#login-process)
+	- [Startup scripts](#startup-scripts)
+	- [/etc/passwd and /etc/shadow files](#etcpasswd-and-etcshadow-files)
 - [Building the emulation environment](#building-the-emulation-environment)
 	- [Emulation environment requirements](#emulation-environment-requirements)
 	- [Choosing the tool to build the Root File System](#choosing-the-tool-to-build-the-root-file-system)
@@ -47,11 +48,11 @@
 		- [Running Buildroot for the first time](#running-buildroot-for-the-first-time)
 		- [Using Buildroot](#using-buildroot)
 		- [Running QEMU](#running-qemu)
-- [Reverse Engineering Router's Binaries](#reverse-engineering-routers-binaries)
+- [How the device works: Reverse Engineering Router's Binaries](#how-the-device-works-reverse-engineering-routers-binaries)
 	- [Reverse Engineering `shell_auth`](#reverse-engineering-shellauth)
 		- [Listing `shell_auth` library calls](#listing-shellauth-library-calls)
 		- [Starting the emulated Machine](#starting-the-emulated-machine)
-		- [Starting `gdbserver` on the emulated Machine](#starting-gdbserver-on-the-emulated-machine)
+		- [Starting *gdbserver* on the emulated Machine](#starting-gdbserver-on-the-emulated-machine)
 		- [Starting `gdb` in the host machine](#starting-gdb-in-the-host-machine)
 		- [Analyzing `shell_auth` in gdb](#analyzing-shellauth-in-gdb)
 	- [Reverse engineering the generator of the WiFi default password](#reverse-engineering-the-generator-of-the-wifi-default-password)
@@ -142,7 +143,7 @@ To access a root shell the router must be in "factory mode" and root access is a
 * power down the router, then power up again and wait until the boot is completed
 * from the PC connect to the router using telnet, the router has the "factory mode" IP (139.128.15.1), you will have a root shell prompt. It is not possible to modify the read only squashfs root file system, but it is possible to explore the system and to modify the content of the UBIFS file system mounted under */mnt/jffs2*, for example you can modify the password for the user *Lnk_Administrator*
 	```
-	valerio@ubuntu-hp:~/linkem2/hacking-gemtek$ telnet 192.168.15.1
+	valerio@ubuntu-hp:~/linkem/hacking-gemtek$ telnet 192.168.15.1
 	Trying 192.168.15.1...
 	Connected to 192.168.15.1.
 	Escape character is '^]'.
@@ -1125,24 +1126,24 @@ ext-tree/
 	 ```
 4. do the initial Buildroot configuration
 	 ```
-	 valerio@BRHOST:~$ cd linkem2/hacking-gemtek/
-	 valerio@BRHOST:~/linkem2/hacking-gemtek$ ./brmake mips4kc-qemu_mipsel_malta_defconfig
+	 valerio@BRHOST:~$ cd linkem/hacking-gemtek/
+	 valerio@BRHOST:~/linkem/hacking-gemtek$ ./brmake mips4kc-qemu_mipsel_malta_defconfig
 	 ```
 5. optionally do additional Buildroot configurations, the previous step has already configured Buildroot for this project, so you can skip this step or you can do this step without changing the current configuration
 	 ```
-	 valerio@BRHOST:~/linkem2/hacking-gemtek$ ./brmake xconfig
+	 valerio@BRHOST:~/linkem/hacking-gemtek$ ./brmake xconfig
 	 ```
 6. optionally configure the *uClibc* library, it is already configured for this project, so you can skip this step or you can do this step without changing the current configuration
 	 ```
-	 valerio@BRHOST:~/linkem2/hacking-gemtek$ ./brmake uclibc-menuconfig
+	 valerio@BRHOST:~/linkem/hacking-gemtek$ ./brmake uclibc-menuconfig
 	 ```
 7. optionally configure the *kernel*, it is already configured for this project, so you can skip this step or you can do this step without changing the current configuration
 	 ```
-	 valerio@BRHOST:~/linkem2/hacking-gemtek$ ./brmake linux-menuconfig
+	 valerio@BRHOST:~/linkem/hacking-gemtek$ ./brmake linux-menuconfig
 	 ```
 8. you can now start Buildroot that will cross-complile everyting and will create the linux kernel *vmlinux* and the root file system *rootfs.ext2* in the *buildroot-2015.02/output/images* folder  
 	 ```
-	 valerio@BRHOST:~/linkem2/hacking-gemtek$ ./brmake
+	 valerio@BRHOST:~/linkem/hacking-gemtek$ ./brmake
 	 ```
 8. the script to start the QEMU emulated machine, [qemu-run/qr](./qemu-run/qr) will automatically pickup the linux kernel and root file system generated in the previous step  
 
@@ -1197,8 +1198,8 @@ The QEMU emulated machine can be started with the *qr* script:
 ```
 $ cd qemu-run/
 $ ./qr
-kernel: /home/valerio/linkem2/buildroot-2015.02/output/images/vmlinux
-rootfs: /home/valerio/linkem2/buildroot-2015.02/output/images/rootfs.ext2
+kernel: /home/valerio/linkem/buildroot-2015.02/output/images/vmlinux
+rootfs: /home/valerio/linkem/buildroot-2015.02/output/images/rootfs.ext2
 ...
 Welcome to Buildroot
 buildroot login: root
@@ -1485,7 +1486,7 @@ short what `shell_out` does is:
                        ...
                      }               
    ```
-   
+
 3. it calls `RSA_generate_key_ex` to generate a new `RSA`
    public/private key and to store it at memory address 0x41ea58,
    (*generated-rsa*)
