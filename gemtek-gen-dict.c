@@ -137,19 +137,29 @@ char *wifipass(const unsigned char *serial, const unsigned char *halfmac, unsign
   int i = 0;
   int j = 0;
   int lastpos = 0;
+  int modulus = SHA_DIGEST_LENGTH;
 
   SHA1(serial, strlen(serial), sha1bin);
-    
-    for (i=0; i<6; i++) {
-      j= halfmac[i]- '0' + lastpos;
-      j= j % SHA_DIGEST_LENGTH;
-      passbin[i]=sha1bin[j];
-      lastpos=j;
+  if (sha1bin[0] != 0) {
+    for (i=1; i<SHA_DIGEST_LENGTH; i++) {
+      if (sha1bin[i] == 0) {
+	modulus = i;
+	break;
+      }
     }
+  }
     
-    b64_encode(passbin,buf,6);
-    lower_string(buf);
-    return buf;
+    
+  for (i=0; i<6; i++) {
+    j= halfmac[i]- '0' + lastpos;
+    j= j % modulus;
+    passbin[i]=sha1bin[j];
+    lastpos=j;
+  }
+    
+  b64_encode(passbin,buf,6);
+  lower_string(buf);
+  return buf;
 }
 
 /* check_date in format yymmdd returns 1 if errors*/
