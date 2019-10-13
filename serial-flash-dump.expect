@@ -19,7 +19,7 @@ send_user "#---> waiting for U-Boot command prompt\n"
 expect "Load Boot Loader code then write to Flash via TFTP"
 send "4"
 send_user "#---> got command prompt\n"
-for {set i 65530} {$i<65537} {incr i} {
+for {set i 0} {$i<65537} {incr i} {
     expect "MT7621 # "
     set ihex [format %x $i]
     #send_user "#---> dumping page $i ($ihex) \n"
