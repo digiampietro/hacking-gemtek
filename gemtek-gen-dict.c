@@ -271,31 +271,34 @@ void next_date (char *date) {
   char sy[3]="  ";
   char sm[3]="  ";
   char sd[3]="  ";
-  struct tm t;
-  t.tm_sec = 0;    /* Seconds (0-60) */
-  t.tm_min = 0;    /* Minutes (0-59) */
-  t.tm_hour = 12;  /* Hours (0-23) */
-  t.tm_mday = 1;   /* Day of the month (1-31) */
-  t.tm_mon = 0;    /* Month (0-11) */
-  t.tm_year = 0;   /* Year - 1900 */
+  struct tm *t,tdata;
+  t=&tdata;
+  time_t tsec = 0;  /* Seconds since the epoch */
+  t->tm_sec = 0;    /* Seconds (0-60) */
+  t->tm_min = 0;    /* Minutes (0-59) */
+  t->tm_hour = 12;  /* Hours (0-23) */
+  t->tm_mday = 1;   /* Day of the month (1-31) */
+  t->tm_mon = 0;    /* Month (0-11) */
+  t->tm_year = 0;   /* Year - 1900 */
 
   strcpy(olddate,date);
-  //fprintf(stderr,"---> next_date input:  %s\n",date);
+  // fprintf(stderr,"---> next_date input:  %s\n",date);
   strncpy(sy,date,2);
   strncpy(sm,date+2,2);
   strncpy(sd,date+4,2);
   y = atoi(sy);
   m = atoi(sm);
   d = atoi(sd);
-  t.tm_year= 100 + y;
-  t.tm_mon=m-1;
-  t.tm_mday=d;
-  t.tm_mday+=1;
-  mktime(&t);
-  strftime(date,7,"%y%m%d",&t);
+  t->tm_year= 100 + y;
+  t->tm_mon=m-1;
+  t->tm_mday=d;
+  tsec=mktime(t);
+  tsec+= 3600 * 24;
+  t=gmtime(&tsec);
+  strftime(date,7,"%y%m%d",t);
   //fprintf(stderr,"---> next_date output: %s\n",date);
   if (strcmp(olddate,date) == 0) {
-    fprintf(stderr,"Unexpected internal error in incrementig date\n");
+    fprintf(stderr,"Unexpected internal error in incrementing date\n");
     exit(1);
   }
 }
