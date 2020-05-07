@@ -26,39 +26,39 @@ if ($opt_h) {
 
 while (<>) {
     if (/nand\s+page\s+([0-9a-f]+)/) {
-	$filepage=hex($1);
-	$ignorepage=0;
-	if ($opt_v) {print STDERR "Reading page $1\n";}
-	if ($filepage > $logicpage) {
-	    die "ERROR expecting nand dump of page $logicpage, got page $filepage\n";
-	}
-	if ($filepage < $logicpage) {
-	    print STDERR "WARNING expecting page $logicpage, got already dumped page $filepage, IGNORING\n";
-	    $ignorepage=1;
-	}
-	$logicpage++ unless $ignorepage;
+        $filepage=hex($1);
+        $ignorepage=0;
+        if ($opt_v) {print STDERR "Reading page $1\n";}
+        if ($filepage > $logicpage) {
+            die "ERROR expecting nand dump of page $logicpage, got page $filepage\n";
+        }
+        if ($filepage < $logicpage) {
+            print STDERR "WARNING expecting page $logicpage, got already dumped page $filepage, IGNORING\n";
+            $ignorepage=1;
+        }
+        $logicpage++ unless $ignorepage;
     }
     if ((/oob:/) && (! $opt_o)) {
-	<>;
-	if ($opt_v) {print STDERR "skipping oob data\n";}
-	<>;
-	if ($opt_v) {print STDERR "skipping oob data\n";}
-	next;
+        <>;
+        if ($opt_v) {print STDERR "skipping oob data\n";}
+        <>;
+        if ($opt_v) {print STDERR "skipping oob data\n";}
+        next;
     }
     if (/([0-9a-f][0-9a-f]\s){31}[0-9a-f][0-9a-f]/) {
-	#print "$&\n";
-	@l=split;
-	$linebytes=0;
-	unless ($ignorepage) {
-	    for $i (@l) {
-		print chr(hex($i));
-		$linebytes++;
-	    }
-	    if ($linebytes != 32) {
-		die "ERROR at page $filepage, expecting 32 bytes per line, got $linebytes \n";
-	    }
-	    $nbytes+=$linebytes;
-	}
+        #print "$&\n";
+        @l=split;
+        $linebytes=0;
+        unless ($ignorepage) {
+            for $i (@l) {
+                print chr(hex($i));
+                $linebytes++;
+            }
+            if ($linebytes != 32) {
+                die "ERROR at page $filepage, expecting 32 bytes per line, got $linebytes \n";
+            }
+            $nbytes+=$linebytes;
+        }
     }
 }
 

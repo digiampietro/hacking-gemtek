@@ -11,11 +11,6 @@ ENV BUILDROOT_MIPS4KC 0.8.3
 #
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
-# ENV http_proxy http://139.128.96.198:8181
-# ENV https_proxy http://139.128.96.198:8181
-# ENV ftp_proxy http://139.128.96.198:8181
-# ENV all_proxy http://139.128.96.198:8181
-
 #
 # ----------------------------------------------------------------- 
 # install needed packages to build and run buildroot and related sw
