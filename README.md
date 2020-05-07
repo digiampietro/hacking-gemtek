@@ -1,6 +1,6 @@
 # Description
 
-**hacking-gemtek** is a reverse engineering project for a Gemtek home router (model WVRTM-127ACN) distributed in Italy by Linkem (a Wireless ISP) with the scope to modify the firmware to add useful software, as an sshd daemon, and to understand how the default WiFi router password is generated. It includes an emulation environment based on Qemu and Docker, a firmware modification kit and a default WiFi password generator. The project follows the reverse engineering process described by the author in a [talk at Hack In Paris 2019](http://va.ler.io/2019/0616/hack_paris_2019_cyber_security_conference.html) Cybersecurity Conference.
+**hacking-gemtek** is a reverse engineering project for a Gemtek home router (model WVRTM-127ACN) distributed in Italy by Linkem (a Wireless ISP) with the scope to modify the firmware to add useful software, as an sshd daemon, and to understand how the default WiFi router password is generated. It includes an emulation environment based on Qemu and Docker, a firmware modification kit and a default WiFi password generator. The project follows the reverse engineering process described by the author in a [talk at Hack In Paris 2019](http://va.ler.io/2019/0616/hack_paris_2019_cyber_security_conference.html) Cybersecurity Conference and in the [Hardware Hacking Tutorial](https://www.youtube.com/playlist?list=PLoFdAHrZtKkhcd9k8ZcR4th8Q8PNOx7iU) series on the [Make Me Hack](https://www.youtube.com/channel/UCoyNuc5bJ-z4X-6OlpNtJUw) YouTube channel.
 
 # Table of Contents
 
