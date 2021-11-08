@@ -1,0 +1,24 @@
+diff -Naur a/package/pcre/pcre.mk b/package/pcre/pcre.mk
+--- a/package/pcre/pcre.mk	2015-03-01 22:26:12.000000000 +0100
++++ b/package/pcre/pcre.mk	2021-11-08 20:44:18.096612624 +0100
+@@ -5,7 +5,7 @@
+ ################################################################################
+ 
+ PCRE_VERSION = 8.36
+-PCRE_SITE = ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre
++PCRE_SITE = http://ftp.cs.stanford.edu/pub/exim/pcre
+ PCRE_LICENSE = BSD-3c
+ PCRE_LICENSE_FILES = LICENCE
+ PCRE_INSTALL_STAGING = YES
+diff -Naur a/package/pkgconf/pkgconf.mk b/package/pkgconf/pkgconf.mk
+--- a/package/pkgconf/pkgconf.mk	2015-03-01 22:26:12.000000000 +0100
++++ b/package/pkgconf/pkgconf.mk	2021-11-08 20:43:14.575883832 +0100
+@@ -5,7 +5,7 @@
+ ################################################################################
+ 
+ PKGCONF_VERSION = 0.8.9
+-PKGCONF_SITE = http://rabbit.dereferenced.org/~nenolod/distfiles
++PKGCONF_SITE = http://distfiles.dereferenced.org/pkgconf
+ PKGCONF_SOURCE = pkgconf-$(PKGCONF_VERSION).tar.bz2
+ PKGCONF_LICENSE = pkgconf license
+ PKGCONF_LICENSE_FILES = COPYING

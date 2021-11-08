@@ -14,7 +14,10 @@ export MIPS4KCDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "-----> change dir to $BRDIR"
 cd $BRDIR
 echo "-----> executing: make BR2_EXTERNAL=$BR2EXT $*"
-
+if [ ! -d $BR2EXT/patches ]
+then
+    mkdir -p $BR2EXT/patches
+fi
 #-----------------------------------------------------------------------
 if [ "$*" == "savedefconfig" ]
 then
