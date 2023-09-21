@@ -3,7 +3,7 @@ MAINTAINER Valerio Di Giampietro "valerio@digiampietro.com"
 #
 # increase the version to force recompilation of everything
 #
-ENV BUILDROOT_MIPS4KC 0.8.3
+ENV BUILDROOT_MIPS4KC 0.8.5
 #
 # ------------------------------------------------------------------
 # environment variables to avoid that dpkg-reconfigure 
